@@ -1,19 +1,22 @@
-//
-//  ContentView.swift
-//  H4X0R Udemy
-//
-//  Created by Ilya Vasilev on 27.11.2022.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    
+   @ObservedObject var networkManager = NetworkManager()
+    
     var body: some View {
+        
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            NavigationView {
+                List(networkManager.posts) { post in
+                    Text(post.title)
+                }
+                .navigationBarTitle("H4X0R News")
+            }
+            .onAppear {
+                self.networkManager.fetchData()
+            }
         }
         .padding()
     }
