@@ -7,10 +7,16 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack {
             NavigationView {
                 List(networkManager.posts) { post in
-                    Text(post.title)
+                        
+                    NavigationLink(destination: DetailView()) {
+                        HStack {
+                            Text(String(post.points))
+                            Text(post.title)
+                        }
+                    }
+                   
                 }
                 .navigationBarTitle("H4X0R News")
             }
@@ -18,9 +24,8 @@ struct ContentView: View {
                 self.networkManager.fetchData()
             }
         }
-        .padding()
     }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
